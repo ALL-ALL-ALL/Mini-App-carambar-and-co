@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "postinstall": "npm uninstall sqlite3 && npm install sqlite3"
+    
   },
   "engines": {
     "node": "18.x"
@@ -15,11 +17,13 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-  "express": "^4.21.2",
-  "sequelize": "^6.37.5",
-  "sqlite3": "^5.0.8"
+    "express": "^4.21.2",
+    "sequelize": "^6.37.5"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "sqlite3": "5.0.2"
   }
+
+  
 }
