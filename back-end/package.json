@@ -5,9 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js",
-    "postinstall": "npm run build-sqlite3",
-    "build-sqlite3": "npm install sqlite3 --build-from-source --sqlite=/usr/bin"
+    "dev": "nodemon server.js"
   },
   "engines": {
     "node": "18.x"
@@ -19,7 +17,7 @@
     "cors": "^2.8.5",
     "express": "^4.21.2",
     "sequelize": "^6.37.5",
-    "sqlite3": "^5.1.7"
+    "sqlite3-prebuilt": "^5.1.7"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
