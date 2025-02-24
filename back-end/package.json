@@ -10,7 +10,7 @@
     "build-sqlite3": "npm install sqlite3 --build-from-source --sqlite=/usr/bin"
   },
   "engines": {
-    "node": "14.x"
+    "node": "18.x"
   },
   "keywords": [],
   "author": "",
