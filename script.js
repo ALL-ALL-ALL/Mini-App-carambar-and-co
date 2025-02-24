@@ -2,7 +2,7 @@ const button = document.getElementById('getjoke');
 const jokeContent = document.getElementById('jokeContent');
 
 button.addEventListener('click', () => {
-  fetch('http://localhost:3000/blagues/random')
+  fetch('https://mini-app-carambar-and-co.onrender.com/blagues/random')
     .then(response => response.json()) // On transforme la réponse en JSON
     .then(data => {
       // On affiche la blague dans le HTML
