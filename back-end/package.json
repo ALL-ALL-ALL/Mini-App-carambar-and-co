@@ -5,7 +5,12 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "postinstall": "npm run build-sqlite3",
+    "build-sqlite3": "npm install sqlite3 --build-from-source --sqlite=/usr/bin"
+  },
+  "engines": {
+    "node": "14.x"
   },
   "keywords": [],
   "author": "",
