@@ -12,17 +12,21 @@
 
 
 
-const express = require('express');
-const { sequelize, Joke } = require('./models'); // Importer sequelize et Joke
+const express = require('express'); // importation de express  framework
 
-const app = express();
-app.use(express.json());
-const cors = require('cors'); // cors
+const { sequelize, Joke } = require('./models'); // importation de joke et de sequilize(connexion) pour interagir avec la base de donnée  
+                                                  // joke et le model quon retrouve dans la base de donnée
 
-// Activez CORS
+const app = express(); // cration de app  express 
+app.use(express.json()); // Utilisation du middleware pour traiter les données JSON dans les requêtes
+
+const cors = require('cors'); // Importation du middleware CORS pour autoriser les requêtes cross-origin
+
+
+// Activez CORS  permettre les requette venant de nimporte 
 app.use(cors());
 
-// Démarrer le serveur
+// Démarrer le serveur 3000 avec un console.log message Serveur est en marche sur http://localhost:3000
 app.listen(3000, () => {
   console.log('Serveur est en marche sur http://localhost:3000');
 });
@@ -35,31 +39,36 @@ app.listen(3000, () => {
 
 // pour consulter une blague en mode ramdom aleatoire 
 
-app.get('/blagues/random', async (req, res) => {
+// async permet de traiter plusieur requette sans que celle-ci soit finit sinon chaque action doit attendre que la précédente soit terminée avant de continuer
+app.get('/blagues/random', async (req, res) => {    // la méthode GET fait référence à l'URL spécifiée
   try {
-    const randomJoke = await Joke.findOne({
-      order: sequelize.literal('RANDOM()') // Choisir une blague au hasard
+    const randomJoke = await Joke.findOne({   // utilise la méthode findOne() de Sequelize pour récupérer une blague au hasard
+      order: sequelize.literal('RANDOM()') // choisir une blague au hasard avec sequelize dans la base de donnée
     });
 
     if (!randomJoke) {
-      return res.status(404).json({ message: 'Aucune blague trouvée' });
+      return res.status(404).json({ message: 'Aucune blague trouvée' }); // si aucune blague est trouve alors erreur 404
     }
 
-    res.status(200).json(randomJoke); // Renvoie la blague aléatoire
+    res.status(200).json(randomJoke); // sinon Renvoie la blague aléatoire avec status 200 OK 
   } catch (error) {
-    console.error('Erreur lors de la récupération de la blague aléatoire:', error);
-    res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de la récupération de la blague aléatoire:', error); // sinon status 500 avec un message d'erreur 
+    res.status(500).json({ message: 'Erreur serveur' }); // et un message d'erreur pour le server 
   }
 });
 
+
+
+
 //  pour ajouter une blague
 
+// async permet de traiter plusieur requette sans rien bloquer
 app.post('/blagues', async (req, res) => {
   try {
-    const { content } = req.body;
-    const newJoke = await Joke.create({ content });
-    res.status(201).json(newJoke);
-  } catch (error) {
+    const { content } = req.body; // recupere le contenu de la blague car "content" via la requete
+    const newJoke = await Joke.create({ content }); // utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
+    res.status(201).json(newJoke);  // renvoi la blague cree en status 201  
+  } catch (error) {                  // chope en cas d'erreur  avec un status 500 avec le message
     res.status(500).json({ error: 'Erreur lors de l\'ajout de la blague' });
   }
 });
@@ -67,17 +76,18 @@ app.post('/blagues', async (req, res) => {
 
      // pour consulter une blague avec son ID 
 
+// toujours en async 
 app.get('/blagues/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const joke = await Joke.findByPk(id); // Recherche une blague par son id
+    const joke = await Joke.findByPk(id); // Recherche une blague avec la methode (findByPk) de sequilizze avec id
     if (joke) {
-      res.status(200).json(joke); // Si la blague existe, la renvoyer
+      res.status(200).json(joke); // Si la blague existe, la renvoyer status 200 ok
     } else {
-      res.status(404).json({ message: 'Blague non trouvée' }); // Si la blague n'existe pas
+      res.status(404).json({ message: 'Blague non trouvée' }); // Si la blague n'existe pas status 404
     }
   } catch (error) {
-    console.error('Erreur lors de la récupération de la blague:', error);
+    console.error('Erreur lors de la récupération de la blague:', error); // prendre l 'erreur la catcher avec un status 500 avec son message 
     res.status(500).json({ message: 'Erreur lors de la récupération de la blague' });
   }
 });
@@ -87,13 +97,13 @@ app.get('/blagues/:id', async (req, res) => {
 
 // pour recuprer toutes les jokesss 
 
-
+// toujours en async 
 app.get('/blagues', async (req, res) => {
   try {
-    const allJokes = await Joke.findAll(); // Récupère toutes les blagues
-    res.status(200).json(allJokes); // Envoie les blagues en réponse
+    const allJokes = await Joke.findAll(); // Récupère toutes les blagues avec la methode findAll() de sequilize
+    res.status(200).json(allJokes); // Envoie les blagues en réponse avec son status
   } catch (error) {
-    console.error('Error fetching jokes:', error);
+    console.error('Error fetching jokes:', error);  // catch l'erreur avec son message 
     res.status(500).json({ message: 'Error fetching jokes' });
   }
 });
