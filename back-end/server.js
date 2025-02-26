@@ -122,16 +122,13 @@ app.get('/blagues', async (req, res) => {
 const swaggerJsdoc = require('swagger-jsdoc'); // Import de swagger-jsdoc
 const swaggerUi = require('swagger-ui-express'); // Import de swagger-ui-express
 
+// Génération des documents Swagger
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // // on peux voir la terminaison - /api-docs - une fois que express recoi la requete donc elle  doit se servir de l'interface Swagger UI
+a
 
 
-// on peux voir la terminaison - /api-docs - une fois que express recoi la requete donc elle  doit se servir de l'interface Swagger UI
- app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-
- // message pour indiquer où la documentation est disponible
-app.get('/', (req, res) => {
-  res.send('API Carambar & Co - Accédez à la documentation sur /api-docs');
-});
 
 
 
@@ -161,6 +158,13 @@ const swaggerOptions = {
   },
   apis: ['./server.js'], // Le fichier qui contient les routes
 };
+
+
+
+// Route d'accueil pour rediriger vers la documentation
+app.get('/', (req, res) => {
+  res.send('API Carambar & Co - Accédez à la documentation sur /api-docs');
+});
 
 
 
