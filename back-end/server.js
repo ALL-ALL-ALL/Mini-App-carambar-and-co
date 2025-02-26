@@ -119,8 +119,8 @@ app.get('/blagues', async (req, res) => {
   // pour intergrer SWAGGER 
   // importation swager
 
-const { swaggerUi, swaggerDocs } = require('./swagger'); //// Import de swagger-ui-express
 const swaggerJsdoc = require('swagger-jsdoc'); // Import de swagger-jsdoc
+const swaggerUi = require('swagger-ui-express'); // Import de swagger-ui-express
 
 
 
