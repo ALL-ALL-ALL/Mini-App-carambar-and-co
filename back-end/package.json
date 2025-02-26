@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js",
     "postinstall": "npm uninstall sqlite3 && npm install sqlite3"
-    
   },
   "engines": {
     "node": "18.x"
@@ -18,12 +17,12 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.21.2",
-    "sequelize": "^6.37.5"
+    "sequelize": "^6.37.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9",
     "sqlite3": "5.0.2"
   }
-
-  
 }

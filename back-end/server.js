@@ -108,3 +108,220 @@ app.get('/blagues', async (req, res) => {
   }
 });
 
+
+//-----------------------------SWAGGER---------------------------------------------
+
+  // pour intergrer SWAGGER 
+  // importation swager
+
+const { swaggerUi, swaggerDocs } = require('./swagger');
+const swaggerJsdoc = require('swagger-jsdoc'); // Import de swagger-jsdoc
+const swaggerUi = require('swagger-ui-express'); // Import de swagger-ui-express
+
+
+
+
+ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
+ // message pour indiquer où la documentation est disponible
+app.get('/', (req, res) => {
+  res.send('API Carambar & Co - Accédez à la documentation sur /api-docs');
+});
+
+
+
+// Configuration de Swagger
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'API Carambar & Co',
+      version: '1.0.0',
+      description: 'API pour gérer une collection de blagues Carambar',
+      contact: {
+        name: 'ALL-ALL-ALL',
+        url: 'https://github.com/ALL-ALL-ALL'
+      }
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+        description: 'Serveur de développement'
+      },
+      {
+        url: 'https://mini-app-carambar-and-co.onrender.com',
+        description: 'Serveur de production'
+      }
+    ],
+  },
+  apis: ['./server.js'], // Le fichier qui contient les routes
+};
+
+
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Joke:
+ *       type: object
+ *       required:
+ *         - content
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: ID automatique de la blague
+ *         content:
+ *           type: string
+ *           description: Le texte de la blague
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *           description: Date de création (automatique)
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ *           description: Date de dernière modification (automatique)
+ */
+
+/**
+ * @swagger
+ * /blagues/random:
+ *   get:
+ *     summary: Récupère une blague aléatoire
+ *     tags: [Blagues]
+ *     responses:
+ *       200:
+ *         description: Une blague aléatoire
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Joke'
+ *       404:
+ *         description: Aucune blague disponible
+ *       500:
+ *         description: Erreur serveur
+ */
+app.get('/blagues/random', async (req, res) => {
+  try {
+    const randomJoke = await Joke.findOne({
+      order: sequelize.literal('RANDOM()')
+    });
+
+    if (!randomJoke) {
+      return res.status(404).json({ message: 'Aucune blague trouvée' });
+    }
+
+    res.status(200).json(randomJoke);
+  } catch (error) {
+    console.error('Erreur lors de la récupération de la blague aléatoire:', error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+});
+
+/**
+ * @swagger
+ * /blagues:
+ *   post:
+ *     summary: Ajoute une nouvelle blague
+ *     tags: [Blagues]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - content
+ *             properties:
+ *               content:
+ *                 type: string
+ *                 description: Le texte de la blague
+ *     responses:
+ *       201:
+ *         description: Blague créée avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Joke'
+ *       500:
+ *         description: Erreur lors de l'ajout de la blague
+ */
+app.post('/blagues', async (req, res) => {
+  try {
+    const { content } = req.body;
+    const newJoke = await Joke.create({ content });
+    res.status(201).json(newJoke);
+  } catch (error) {
+    res.status(500).json({ error: 'Erreur lors de l\'ajout de la blague' });
+  }
+});
+
+/**
+ * @swagger
+ * /blagues/{id}:
+ *   get:
+ *     summary: Récupère une blague par son ID
+ *     tags: [Blagues]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID de la blague
+ *     responses:
+ *       200:
+ *         description: Détails de la blague
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Joke'
+ *       404:
+ *         description: Blague non trouvée
+ *       500:
+ *         description: Erreur lors de la récupération de la blague
+ */
+app.get('/blagues/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const joke = await Joke.findByPk(id);
+    if (joke) {
+      res.status(200).json(joke);
+    } else {
+      res.status(404).json({ message: 'Blague non trouvée' });
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération de la blague:', error);
+    res.status(500).json({ message: 'Erreur lors de la récupération de la blague' });
+  }
+});
+
+/**
+ * @swagger
+ * /blagues:
+ *   get:
+ *     summary: Récupère toutes les blagues
+ *     tags: [Blagues]
+ *     responses:
+ *       200:
+ *         description: Liste de toutes les blagues
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Joke'
+ *       500:
+ *         description: Erreur lors de la récupération des blagues
+ */
+app.get('/blagues', async (req, res) => {
+  try {
+    const allJokes = await Joke.findAll();
+    res.status(200).json(allJokes);
+  } catch (error) {
+    console.error('Error fetching jokes:', error);
+    res.status(500).json({ message: 'Error fetching jokes' });
+  }
+});
