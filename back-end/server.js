@@ -26,10 +26,7 @@ const cors = require('cors'); // Importation du middleware CORS pour autoriser l
 // Activez CORS  permettre les requette venant de nimporte 
 app.use(cors());
 
-// Démarrer le serveur 3000 avec un console.log message Serveur est en marche sur http://localhost:3000
-app.listen(3000, () => {
-  console.log('Serveur est en marche sur http://localhost:3000');
-});
+
 
 
 
@@ -122,14 +119,8 @@ app.listen(3000, () => {
 const swaggerJsdoc = require('swagger-jsdoc'); // Import de swagger-jsdoc
 const swaggerUi = require('swagger-ui-express'); // Import de swagger-ui-express
 
-// Génération des documents Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // // on peux voir la terminaison - /api-docs - une fois que express recoi la requete donc elle  doit se servir de l'interface Swagger UI
 
-    
-
-
-
-
+  
 // Configuration de Swagger
 const swaggerOptions = {
   definition: {
@@ -158,6 +149,11 @@ const swaggerOptions = {
 };
 
 
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+
+// Génération des documents Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // // on peux voir la terminaison - /api-docs - une fois que express recoi la requete donc elle  doit se servir de l'interface Swagger UI
+
 
 // Route d'accueil pour rediriger vers la documentation
 app.get('/', (req, res) => {
@@ -165,6 +161,7 @@ app.get('/', (req, res) => {
 });
 
 
+// voila le model swagger et de mes routes (des 4 end-point)
 
 /**
  * @swagger
@@ -226,6 +223,8 @@ app.get('/blagues/random', async (req, res) => {
   }
 });
 
+
+
 /**
  * @swagger
  * /blagues:
@@ -263,6 +262,9 @@ app.post('/blagues', async (req, res) => {
     res.status(500).json({ error: 'Erreur lors de l\'ajout de la blague' });
   }
 });
+
+
+
 
 /**
  * @swagger
@@ -304,6 +306,9 @@ app.get('/blagues/:id', async (req, res) => {
   }
 });
 
+
+
+
 /**
  * @swagger
  * /blagues:
@@ -333,5 +338,7 @@ app.get('/blagues', async (req, res) => {
 });
 
 
-
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
+// Démarrer le serveur 3000 avec un console.log message Serveur est en marche sur http://localhost:3000
+app.listen(3000, () => {
+  console.log('Serveur est en marche sur http://localhost:3000');
+});
