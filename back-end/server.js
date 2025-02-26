@@ -123,7 +123,6 @@ const swaggerJsdoc = require('swagger-jsdoc'); // Import de swagger-jsdoc
 const swaggerUi = require('swagger-ui-express'); // Import de swagger-ui-express
 
 // Génération des documents Swagger
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // // on peux voir la terminaison - /api-docs - une fois que express recoi la requete donc elle  doit se servir de l'interface Swagger UI
 
     
@@ -332,3 +331,7 @@ app.get('/blagues', async (req, res) => {
     res.status(500).json({ message: 'Error fetching jokes' });
   }
 });
+
+
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
