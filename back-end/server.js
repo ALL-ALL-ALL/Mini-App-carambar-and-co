@@ -120,7 +120,7 @@ const swaggerUi = require('swagger-ui-express'); // Import de swagger-ui-express
 
 
 
-
+// on peux voir la terminaison - /api-docs - une fois que express recoi la requete donc elle  doit se servir de l'interface Swagger UI.
  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 
