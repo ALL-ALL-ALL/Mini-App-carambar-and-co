@@ -8,7 +8,7 @@ Une application web qui génère des blagues aléatoires, dans l'esprit des cél
 - **Application Web** :  https://all-all-all.github.io/Mini-App-carambar-and-co/
 - **API Backend** : https://mini-app-carambar-and-co.onrender.com/blagues/
 - **Dépôt GitHub** : https://github.com/ALL-ALL-ALL/Mini-App-carambar-and-co
-- Documentation API (Swagger) : https://mini-app-carambar-and-co.onrender.com/api-docs
+ Documentation API (Swagger) : https://mini-app-carambar-and-co.onrender.com/api-docs
 
 
 ## Technologies Utilisées
