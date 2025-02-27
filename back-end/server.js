@@ -110,8 +110,14 @@ app.use(cors());
 
 
 
-
 //------------SWAGGER---SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER----------------------------------------
+//------------SWAGGER---SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER----------------------------------------
+//------------SWAGGER---SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER----------------------------------------
+//------------SWAGGER---SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER----------------------------------------
+//------------SWAGGER---SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER----------------------------------------
+//------------SWAGGER---SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER--SWAGGER----------------------------------------
+
+
 
   // pour intergrer SWAGGER 
   // importation swager
@@ -163,6 +169,7 @@ app.get('/', (req, res) => {
 
 // voila le model swagger et de mes routes (des 4 end-point)
 // et le debut defini le shema du model joke 
+
 /**
  * @swagger
  * components:
@@ -188,7 +195,8 @@ app.get('/', (req, res) => {
  *           description: Date de dernière modification (automatique)
  */
 
-// la je documente mon end-point 
+
+// la je documente mon end-point RANDOM
 /**
  * @swagger
  * /blagues/random:
@@ -229,6 +237,7 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET fait réf
 
 
 
+// la je documente mon end-point POST donc l'ajout de blagues
 
 /**
  * @swagger
@@ -258,12 +267,14 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET fait réf
  *       500:
  *         description: Erreur lors de l'ajout de la blague
  */
+
+// async permet de traiter plusieur requette sans rien bloquer
 app.post('/blagues', async (req, res) => {
   try {
-    const { content } = req.body;
-    const newJoke = await Joke.create({ content });
-    res.status(201).json(newJoke);
-  } catch (error) {
+    const { content } = req.body; // recupere le contenu de la blague car "content" via la requete
+    const newJoke = await Joke.create({ content }); // utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
+    res.status(201).json(newJoke);  // renvoi la blague cree en status 201  
+  } catch (error) {                  // chope en cas d'erreur  avec un status 500 avec le message
     res.status(500).json({ error: 'Erreur lors de l\'ajout de la blague' });
   }
 });
@@ -271,6 +282,7 @@ app.post('/blagues', async (req, res) => {
 
 
 
+// la je documente mon end-point GET avec ID de la blague
 
 
 /**
@@ -315,6 +327,7 @@ app.get('/blagues/:id', async (req, res) => {
 });
 
 
+// la je documente mon end-point GET pour recuperer toutes les blagues
 
 
 /**
@@ -335,15 +348,17 @@ app.get('/blagues/:id', async (req, res) => {
  *       500:
  *         description: Erreur lors de la récupération des blagues
  */
+// toujours en async 
 app.get('/blagues', async (req, res) => {
   try {
-    const allJokes = await Joke.findAll();
-    res.status(200).json(allJokes);
+    const allJokes = await Joke.findAll(); // Récupère toutes les blagues avec la methode findAll() de sequilize
+    res.status(200).json(allJokes); // Envoie les blagues en réponse avec son status
   } catch (error) {
-    console.error('Error fetching jokes:', error);
+    console.error('Error fetching jokes:', error);  // catch l'erreur avec son message 
     res.status(500).json({ message: 'Error fetching jokes' });
   }
 });
+
 
 
 // Démarrer le serveur 3000 avec un console.log message Serveur est en marche sur http://localhost:3000
