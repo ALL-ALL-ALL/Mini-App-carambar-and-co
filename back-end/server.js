@@ -1,3 +1,5 @@
+// config de base 
+
 // const express = require('express');
 // const app = express();
 // const port = 3000;
@@ -26,13 +28,7 @@ const cors = require('cors'); // Importation du middleware CORS pour autoriser l
 // Activez CORS  permettre les requette venant de nimporte 
 app.use(cors());
 
-
-
-
-
-
-
-
+                      //  tester api au debut 
 
 // // pour consulter une blague en mode ramdom aleatoire 
 
@@ -53,9 +49,6 @@ app.use(cors());
 //     res.status(500).json({ message: 'Erreur serveur' }); // et un message d'erreur pour le server 
 //   }
 // });
-
-
-
 
 // //  pour ajouter une blague
 
@@ -89,9 +82,6 @@ app.use(cors());
 //   }
 // });
 
-
-
-
 // // pour recuprer toutes les jokesss 
 
 // // toujours en async 
@@ -104,6 +94,19 @@ app.use(cors());
 //     res.status(500).json({ message: 'Error fetching jokes' });
 //   }
 // });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
