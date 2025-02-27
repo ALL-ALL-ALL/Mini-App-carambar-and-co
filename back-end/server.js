@@ -208,7 +208,6 @@ app.get('/', (req, res) => {
  *         description: Erreur serveur
  */
 
-// async permet de traiter plusieur requette sans rien bloquer
 // async permet de traiter plusieur requette sans que celle-ci soit finit sinon chaque action doit attendre que la précédente soit terminée avant de continuer
 app.get('/blagues/random', async (req, res) => {    // la méthode GET fait référence à l'URL spécifiée
   try {
@@ -226,6 +225,8 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET fait réf
     res.status(500).json({ message: 'Erreur serveur' }); // et un message d'erreur pour le server 
   }
 });
+
+
 
 
 
@@ -270,6 +271,8 @@ app.post('/blagues', async (req, res) => {
 
 
 
+
+
 /**
  * @swagger
  * /blagues/{id}:
@@ -295,17 +298,18 @@ app.post('/blagues', async (req, res) => {
  *       500:
  *         description: Erreur lors de la récupération de la blague
  */
+// toujours en async 
 app.get('/blagues/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const joke = await Joke.findByPk(id);
+    const joke = await Joke.findByPk(id); // Recherche une blague avec la methode (findByPk) de sequilizze avec id
     if (joke) {
-      res.status(200).json(joke);
+      res.status(200).json(joke); // Si la blague existe, la renvoyer status 200 ok
     } else {
-      res.status(404).json({ message: 'Blague non trouvée' });
+      res.status(404).json({ message: 'Blague non trouvée' }); // Si la blague n'existe pas status 404
     }
   } catch (error) {
-    console.error('Erreur lors de la récupération de la blague:', error);
+    console.error('Erreur lors de la récupération de la blague:', error); // prendre l 'erreur la catcher avec un status 500 avec son message 
     res.status(500).json({ message: 'Erreur lors de la récupération de la blague' });
   }
 });
