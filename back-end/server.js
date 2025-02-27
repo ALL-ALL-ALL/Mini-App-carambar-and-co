@@ -168,7 +168,7 @@ app.get('/', (req, res) => {
 
 
 // voila le model swagger et de mes routes (des 4 end-point)
-// et le debut defini le shema du model joke 
+// le shemas du model joke  que lon va retrouver tout en bas dans la page 
 
 /**
  * @swagger
