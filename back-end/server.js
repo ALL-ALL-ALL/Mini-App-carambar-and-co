@@ -128,7 +128,7 @@ const swaggerUi = require('swagger-ui-express'); // Import de swagger-ui-express
 
 
   
-// Configuration de Swagger
+// Configuration de Swagger  ce qui équivaut a ce qu'on verra dans la banniere plus le server
 const swaggerOptions = {
   definition: {
     openapi: '3.0.0',
@@ -137,7 +137,7 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'API pour gérer une collection de blagues Carambar',
       contact: {
-        name: 'ALL-ALL',
+        name: 'Allan ixart',
         url: 'https://all-all-all.github.io/Mini-App-carambar-and-co/'
       }
     },
@@ -152,17 +152,17 @@ const swaggerOptions = {
       }
     ],
   },
-  apis: ['./server.js'], // Le fichier qui contient les routes
+  apis: ['./server.js'], // Le fichier qui contient les routes etc..
 };
 
+// en gros il traduit les anotations donc les commentaire ( @swagger ) en formation jSON et se document JSON passe apres par Swagger UI (juste en bas) qui configure l'interface 
+const swaggerDocs = swaggerJsdoc(swaggerOptions); //   elle utilise la fonction swaggerJsdoc 
 
-const swaggerDocs = swaggerJsdoc(swaggerOptions);
-
-// Génération des documents Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // // on peux voir la terminaison - /api-docs - une fois que express recoi la requete donc elle  doit se servir de l'interface Swagger UI
+// Génération de swagger ui quand ya /api-docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // // on peux voir la terminaison - /api-docs - quand un utilisateur et sur /api-docs express lui dit sert toi de swagger ui 
 
 
-// Route d'accueil pour rediriger vers la documentation
+// Route d'accueil pour rediriger vers la documentation car si un utilisateur veux aller a la racine de api au lieu de voir un 404 erreur ou un truc vide il aura une redirection 
 app.get('/', (req, res) => {
   res.send('API Carambar & Co - Accédez à la documentation sur /api-docs');
 });
@@ -202,7 +202,7 @@ app.get('/', (req, res) => {
  * @swagger
  * /blagues/random:
  *   get:                                         // il precise que c'est une requete get 
- *     summary: Récupère une blague aléatoire
+ *     summary: Récupère une blague aléatoire     // description de la route
  *     tags: [Blagues]                            // il le tag  à blague
  *     responses:                                 // reponse 200 ok 
  *       200:
