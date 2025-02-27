@@ -165,7 +165,7 @@ const swaggerDocs = swaggerJsdoc(swaggerOptions); //   elle utilise la fonction 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // // on peux voir la terminaison - /api-docs - quand un utilisateur et sur /api-docs express lui dit sert toi de swagger ui 
 
 
-// Route d'accueil pour rediriger vers la documentation car si un utilisateur veux aller a la racine de api au lieu de voir un 404 erreur ou un truc vide il aura une redirection 
+// Route d'accueil pour rediriger vers la documentation car si un utilisateur veux aller a la racine de api au lieu de voir un 404 erreur ou 502 ou un truc vide il aura une redirection 
 app.get('/', (req, res) => {
   res.send('API Carambar & Co -  Vous pouvez Accéder à la documentation sur /api-docs     -à bientôt 🙋🏻‍♂️' );
 });
