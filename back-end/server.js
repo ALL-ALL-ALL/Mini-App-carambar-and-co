@@ -131,7 +131,7 @@ const swaggerOptions = {
       description: 'API pour gérer une collection de blagues Carambar',
       contact: {
         name: 'ALL-ALL-ALL',
-        url: 'https://github.com/ALL-ALL-ALL'
+        url: 'https://all-all-all.github.io/Mini-App-carambar-and-co/'
       }
     },
     servers: [
