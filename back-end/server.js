@@ -162,7 +162,7 @@ app.get('/', (req, res) => {
 
 
 // voila le model swagger et de mes routes (des 4 end-point)
-
+// et le debut defini le shema du model joke 
 /**
  * @swagger
  * components:
@@ -188,38 +188,42 @@ app.get('/', (req, res) => {
  *           description: Date de dernière modification (automatique)
  */
 
+// la je documente mon end-point 
 /**
  * @swagger
  * /blagues/random:
- *   get:
+ *   get:                                         // il precise que c'est une requete get 
  *     summary: Récupère une blague aléatoire
- *     tags: [Blagues]
- *     responses:
+ *     tags: [Blagues]                            // il le tag  à blague
+ *     responses:                                 // reponse 200 ok 
  *       200:
- *         description: Une blague aléatoire
+ *         description: Une blague aléatoire      
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Joke'
- *       404:
- *         description: Aucune blague disponible
- *       500:
+ *       404:                                         //  réponses rien de trouvée
+ *         description: Aucune blague disponible      
+ *       500:                                       // erreur server 
  *         description: Erreur serveur
  */
-app.get('/blagues/random', async (req, res) => {
+
+// async permet de traiter plusieur requette sans rien bloquer
+// async permet de traiter plusieur requette sans que celle-ci soit finit sinon chaque action doit attendre que la précédente soit terminée avant de continuer
+app.get('/blagues/random', async (req, res) => {    // la méthode GET fait référence à l'URL spécifiée
   try {
-    const randomJoke = await Joke.findOne({
-      order: sequelize.literal('RANDOM()')
+    const randomJoke = await Joke.findOne({   // utilise la méthode findOne() de Sequelize pour récupérer une blague au hasard
+      order: sequelize.literal('RANDOM()') // choisir une blague au hasard avec sequelize dans la base de donnée
     });
 
     if (!randomJoke) {
-      return res.status(404).json({ message: 'Aucune blague trouvée' });
+      return res.status(404).json({ message: 'Aucune blague trouvée' }); // si aucune blague est trouve alors erreur 404
     }
 
-    res.status(200).json(randomJoke);
+    res.status(200).json(randomJoke); // sinon Renvoie la blague aléatoire avec status 200 OK 
   } catch (error) {
-    console.error('Erreur lors de la récupération de la blague aléatoire:', error);
-    res.status(500).json({ message: 'Erreur serveur' });
+    console.error('Erreur lors de la récupération de la blague aléatoire:', error); // sinon status 500 avec un message d'erreur 
+    res.status(500).json({ message: 'Erreur serveur' }); // et un message d'erreur pour le server 
   }
 });
 
