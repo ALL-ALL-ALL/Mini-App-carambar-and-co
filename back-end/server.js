@@ -130,7 +130,7 @@ const swaggerOptions = {
       version: '1.0.0',
       description: 'API pour gérer une collection de blagues Carambar',
       contact: {
-        name: 'ALL-ALL-ALL',
+        name: 'ALL-ALL',
         url: 'https://all-all-all.github.io/Mini-App-carambar-and-co/'
       }
     },
