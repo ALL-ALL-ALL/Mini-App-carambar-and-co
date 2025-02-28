@@ -167,13 +167,13 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // // on pe
 
 // Route d'accueil pour rediriger vers la documentation car si un utilisateur veux aller a la racine de api au lieu de voir un 404 erreur ou 502 ou un truc vide il aura une redirection 
 app.get('/', (req, res) => {
-  res.send('API Carambar & Co -  Vous pouvez Accéder à la documentation sur /api-docs     -à bientôt 🙋🏻‍♂️' );
+  res.send('API Carambar & Co -  Vous pouvez Accéder à la documentation sur /api-docs     à bientôt 🙋🏻‍♂️🙋🏻‍♂️🙋🏻‍♂️' );
 });
 
 
 // voila le model swagger et de mes routes (des 4 end-point)
 // le shemas du model joke  que lon va retrouver tout en bas dans la page 
-
+//LE SCHEMAS
 /**
  * @swagger
  * components:
@@ -232,15 +232,15 @@ app.get('/', (req, res) => {
 // async permet de traiter plusieur requette sans que celle-ci soit finit sinon chaque action doit attendre que la précédente soit terminée avant de continuer
 app.get('/blagues/random', async (req, res) => {    // la méthode GET fait référence à l'URL spécifiée
   try {
-    const randomJoke = await Joke.findOne({   // utilise la méthode findOne() de Sequelize pour récupérer une blague au hasard
+    const randomBlagues = await Joke.findOne({   // utilise la méthode findOne() de Sequelize pour récupérer une blague au hasard
       order: sequelize.literal('RANDOM()') // choisir une blague au hasard avec sequelize dans la base de donnée
     });
 
-    if (!randomJoke) {
+    if (!randomBlagues) {
       return res.status(404).json({ message: 'Aucune blague trouvée' }); // si aucune blague est trouve alors erreur 404
     }
 
-    res.status(200).json(randomJoke); // sinon Renvoie la blague aléatoire avec status 200 OK 
+    res.status(200).json(randomBlagues); // sinon Renvoie la blague aléatoire avec status 200 OK 
   } catch (error) {
     console.error('Erreur lors de la récupération de la blague aléatoire:', error); // sinon status 500 avec un message d'erreur 
     res.status(500).json({ message: 'Erreur serveur' }); // et un message d'erreur pour le server 
@@ -369,7 +369,7 @@ app.get('/blagues/:id', async (req, res) => {
 // toujours en async 
 app.get('/blagues', async (req, res) => {
   try {
-    const allJokes = await Joke.findAll(); // Récupère toutes les blagues avec la methode findAll() de sequilize
+    const allJokes = await Joke.findAll(); // Récupère toutes les blagues avec la variable allJokes avec la methode findAll() de sequilize
     res.status(200).json(allJokes); // Envoie les blagues en réponse avec son status
   } catch (error) {
     console.error('Error fetching jokes:', error);  // catch l'erreur avec son message 
