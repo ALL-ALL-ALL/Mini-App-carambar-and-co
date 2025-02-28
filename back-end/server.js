@@ -200,6 +200,15 @@ app.get('/', (req, res) => {
  */
 
 
+
+
+
+
+
+
+
+
+
 // la je documente mon end-point RANDOM
 /**
  * @swagger
@@ -237,6 +246,11 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET fait réf
     res.status(500).json({ message: 'Erreur serveur' }); // et un message d'erreur pour le server 
   }
 });
+
+
+
+
+
 
 
 
