@@ -39,3 +39,4 @@ sequelize.sync()
   });
 
 module.exports = { sequelize, Joke };
+ 
