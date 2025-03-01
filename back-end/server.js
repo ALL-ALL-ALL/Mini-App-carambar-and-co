@@ -375,8 +375,8 @@ app.get('/blagues/:id', async (req, res) => {
 // toujours en async 
 app.get('/blagues', async (req, res) => {
   try {
-    const allJokes = await Joke.findAll(); // Récupère toutes les blagues avec la variable allJokes avec la methode findAll() de sequilize
-    res.status(200).json(allJokes); // Envoie les blagues en réponse avec son status
+    const toutesLesBlagues = await Joke.findAll(); // Récupère toutes les blagues avec la variable allJokes avec la methode findAll() de sequilize
+    res.status(200).json(toutesLesBlagues); // Envoie les blagues en réponse avec son status
   } catch (error) {
     console.error('Error fetching jokes:', error);  // catch l'erreur avec son message 
     res.status(500).json({ message: 'Error fetching jokes' });
