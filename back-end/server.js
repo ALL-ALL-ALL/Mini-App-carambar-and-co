@@ -236,7 +236,7 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET fait réf
       order: sequelize.literal('RANDOM()') // choisir une blague au hasard avec sequelize dans la base de donnée
     });
 
-    if (!randomBlagues) {
+    if (!randomBlagues) { // Si aucune blague n'est trouvée !
       return res.status(404).json({ message: 'Aucune blague trouvée' }); // si aucune blague est trouve alors erreur 404
     }
 
@@ -290,8 +290,8 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET fait réf
 app.post('/blagues', async (req, res) => {
   try {
     const { content } = req.body; // recupere le contenu de la blague car "content" via la requete
-    const newJoke = await Joke.create({ content }); // utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
-    res.status(201).json(newJoke);  // renvoi la blague cree en status 201  
+    const nouvelleBlague = await Joke.create({ content }); // utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
+    res.status(201).json(nouvelleBlague);  // renvoi la blague cree en status 201  
   } catch (error) {                  // chope en cas d'erreur  avec un status 500 avec le message
     res.status(500).json({ error: 'Erreur lors de l\'ajout de la blague' });
   }
