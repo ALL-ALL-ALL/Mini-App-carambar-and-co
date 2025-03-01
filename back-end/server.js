@@ -236,9 +236,9 @@ app.get('/', (req, res) => {
 //3em etape : est cree une gestion d'erreur si tout ne va pas      (catch) avec des console.log si on veut mettre un message 
 
 // async permet de traiter plusieur requette sans que celle-ci soit finit sinon chaque action doit attendre que la précédente soit terminée avant de continuer
-app.get('/blagues/random', async (req, res) => {    // la méthode GET fait référence à l'URL spécifiée
+app.get('/blagues/random', async (req, res) => {    // la méthode GET 
   try {
-    const randomBlagues = await Joke.findOne({   // utilise la méthode findOne() de Sequelize pour récupérer une blague au hasard
+    const randomBlagues = await Joke.findOne({   // cree une variable qui stock le resultat utilise la méthode findOne() de Sequelize pour récupérer une blague au hasard dans la base de données
       order: sequelize.literal('RANDOM()') // choisir une blague au hasard avec sequelize dans la base de donnée
     });
 
@@ -296,7 +296,7 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET fait réf
 app.post('/blagues', async (req, res) => {
   try {
     const { content } = req.body; //  je recupere le contenu de la blague car "content" via la requete
-    const ajoutBlague = await Joke.create({ content }); // utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
+    const ajoutBlague = await Joke.create({ content }); // cree une variable qui stock le resultat utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
     res.status(201).json(ajoutBlague);  // j'envoi la blague en repons cree en status 201  
   } catch (error) {                  // chope en cas d'erreur  avec un status 500 avec le message
     res.status(500).json({ error: 'Erreur lors de l\'ajout de la blague' });
@@ -337,7 +337,7 @@ app.post('/blagues', async (req, res) => {
 // toujours en async 
 app.get('/blagues/:id', async (req, res) => {
   try {
-    const blagueId = await Joke.findByPk(id); // Recherche une blague avec la methode (findByPk) de sequilizze avec id
+    const blagueId = await Joke.findByPk(id); // cree une variable qui stock le resultat Recherche une blague avec la methode (findByPk- by my primera key ) de sequilizze avec id dans la base de donnéé
     if (blagueId) {
       res.status(200).json(blagueId); // Si la blague existe, la renvoyer status 200 ok
     } else {
@@ -374,7 +374,7 @@ app.get('/blagues/:id', async (req, res) => {
 // toujours en async 
 app.get('/blagues', async (req, res) => {
   try {
-    const toutesLesBlagues = await Joke.findAll(); // Récupère toutes les blagues avec la variable allJokes avec la methode findAll() de sequilize
+    const toutesLesBlagues = await Joke.findAll(); // cree une variable qui stock le resultat Récupère toutes les blagues  avec la methode findAll() de sequilize dans la base de données
     res.status(200).json(toutesLesBlagues); // Envoie les blagues en réponse avec son status
   } catch (error) {
     console.error('Error fetching jokes:', error);  // catch l'erreur avec son message 
