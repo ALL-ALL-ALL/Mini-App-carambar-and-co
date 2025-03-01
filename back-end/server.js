@@ -336,7 +336,6 @@ app.post('/blagues', async (req, res) => {
  */
 // toujours en async 
 app.get('/blagues/:id', async (req, res) => {
-  const { id } = req.params;
   try {
     const blagueId = await Joke.findByPk(id); // Recherche une blague avec la methode (findByPk) de sequilizze avec id
     if (blagueId) {
