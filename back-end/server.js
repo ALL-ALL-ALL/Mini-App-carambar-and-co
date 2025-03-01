@@ -338,9 +338,9 @@ app.post('/blagues', async (req, res) => {
 app.get('/blagues/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    const joke = await Joke.findByPk(id); // Recherche une blague avec la methode (findByPk) de sequilizze avec id
+    const blagueId = await Joke.findByPk(id); // Recherche une blague avec la methode (findByPk) de sequilizze avec id
     if (joke) {
-      res.status(200).json(joke); // Si la blague existe, la renvoyer status 200 ok
+      res.status(200).json(blagueId); // Si la blague existe, la renvoyer status 200 ok
     } else {
       res.status(404).json({ message: 'Blague non trouvée' }); // Si la blague n'existe pas status 404
     }
