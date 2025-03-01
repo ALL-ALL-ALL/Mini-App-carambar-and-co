@@ -229,6 +229,12 @@ app.get('/', (req, res) => {
  *         description: Erreur serveur
  */
 
+
+//processs
+// 1er etape: on recupere les blague dans la base de donner    (avec la methode choisi en l'occurence sequilize qui permet de récupérer tous les enregistrements d'un modèle)
+//2em etape: on les transforme en format json et les envoi avec un status 200 ok     (avec .json)  (status 200 ok) avec des console.log si on veut pour debeuger
+//3em etape : est cree une gestion d'erreur si tout ne va pas      (catch) avec des console.log si on veut mettre un message 
+
 // async permet de traiter plusieur requette sans que celle-ci soit finit sinon chaque action doit attendre que la précédente soit terminée avant de continuer
 app.get('/blagues/random', async (req, res) => {    // la méthode GET fait référence à l'URL spécifiée
   try {
@@ -289,15 +295,15 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET fait réf
 // async permet de traiter plusieur requette sans rien bloquer
 app.post('/blagues', async (req, res) => {
   try {
-    const { content } = req.body; // recupere le contenu de la blague car "content" via la requete
-    const nouvelleBlague = await Joke.create({ content }); // utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
-    res.status(201).json(nouvelleBlague);  // renvoi la blague cree en status 201  
+    const { content } = req.body; //  je recupere le contenu de la blague car "content" via la requete
+    const ajoutBlague = await Joke.create({ content }); // utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
+    res.status(201).json(ajoutBlague);  // j'envoi la blague en repons cree en status 201  
   } catch (error) {                  // chope en cas d'erreur  avec un status 500 avec le message
     res.status(500).json({ error: 'Erreur lors de l\'ajout de la blague' });
   }
 });
 
-
+  
 
 
 // la je documente mon end-point GET avec ID de la blague
