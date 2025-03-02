@@ -224,7 +224,7 @@ app.get('/', (req, res) => {
 
 
 
-// la je documente mon end-point RANDOM
+// la je documente mon end-point RANDOM 
 /**
  * @swagger
  * /v1/blagues/random:
@@ -252,6 +252,7 @@ app.get('/', (req, res) => {
 
 // async permet de traiter plusieur requette sans que celle-ci soit finit sinon chaque action doit attendre que la précédente soit terminée avant de continuer
 // Route Version 1 RANDOM 
+
 v1Router.get('/blagues/random', async (req, res) => {    // la méthode GET 
   try {
     const randomBlagues = await Joke.findOne({   // cree une variable qui stock le resultat utilise la méthode findOne() de Sequelize pour récupérer une blague au hasard dans la base de données
@@ -310,6 +311,7 @@ v1Router.get('/blagues/random', async (req, res) => {    // la méthode GET
 
 // async permet de traiter plusieur requette sans rien bloquer
 // Route Ajout de blagues Version 1
+
 v1Router.post('/blagues', async (req, res) => {
   try {
     const { content } = req.body; //  je recupere le contenu de la blague car "content" via la requete
@@ -324,7 +326,6 @@ v1Router.post('/blagues', async (req, res) => {
 
 
 // la je documente mon end-point GET avec ID de la blague
-
 
 /**
  * @swagger
