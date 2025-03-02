@@ -361,10 +361,10 @@ v1Router.get('/blagues/:id', async (req, res) => {
     if (blagueId) {
       res.status(200).json(blagueId); // Si la blague existe, la renvoyer status 200 ok
     } else {
-      res.status(404).json( 'Blague non trouvée desoler trouve un autre moyen 🙋🏻‍♂️' ); // Si la blague n'existe pas status 404
+      res.status(404).json( 'Tu as eu acces à la base de donnée mais la Blague que tu cherches existe pas 🙋🏻‍♂️' ); // acces a la base de données mais la blague n'existe pas status 404 
     }
   } catch (error) {
-    console.error('Erreur lors de la récupération de la blague:', error); // prendre l 'erreur la catcher avec un status 500 avec son message 
+    console.error('Erreur lors de la connexion de la base de données reessayer 🙋🏻‍♂️'); // prendre l 'erreur la catcher avec un status 500 avec son message 
     res.status(500).json('Erreur lors de la récupération de la blague');
   }
 });
