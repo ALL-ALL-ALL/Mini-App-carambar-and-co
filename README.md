@@ -4,7 +4,7 @@
 Une application web qui génère des blagues aléatoires, dans l'esprit des célèbres Carambar.
 
 ## 🔗 Liens du Projet
-- **API Backend** : https://mini-app-carambar-and-co.onrender.com/blagues/      
+- **API Backend** : https://mini-app-carambar-and-co.onrender.com/v1/blagues/     
 - **Documentation** API (Swagger) : https://mini-app-carambar-and-co.onrender.com/api-docs
 - **Frontend** : https://github.com/ALL-ALL-ALL/carambar-front
 
