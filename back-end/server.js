@@ -28,6 +28,16 @@ const cors = require('cors'); // Importation du middleware CORS pour autoriser l
 // Activez CORS  permettre les requette venant de nimporte 
 app.use(cors());
 
+
+
+// Creation d'un routeur pour la Version 1 (elle permettra de grouper les routes via la methode Express)
+
+const v1Router = express.Router();
+
+
+
+
+
                       //  tester api au debut 
 
 // // pour consulter une blague en mode ramdom aleatoire 
@@ -209,13 +219,18 @@ app.get('/', (req, res) => {
 
 
 
+
+
+
+
+
 // la je documente mon end-point RANDOM
 /**
  * @swagger
- * /blagues/random:
+ * /v1/blagues/random:
  *   get:                                         // il precise que c'est une requete get 
  *     summary: Récupère une blague aléatoire     // description de la route
- *     tags: [Blagues]                            // il le tag  à blague
+ *     tags: [Blagues V1]                            // il le tag  à blague V1
  *     responses:                                 // reponse 200 ok 
  *       200:
  *         description: Une blague aléatoire      
@@ -236,7 +251,8 @@ app.get('/', (req, res) => {
 //3em etape : est cree une gestion d'erreur si tout ne va pas      (catch) avec des console.log si on veut mettre un message 
 
 // async permet de traiter plusieur requette sans que celle-ci soit finit sinon chaque action doit attendre que la précédente soit terminée avant de continuer
-app.get('/blagues/random', async (req, res) => {    // la méthode GET 
+// Route Version 1 RANDOM 
+v1Router.get('/blagues/random', async (req, res) => {    // la méthode GET 
   try {
     const randomBlagues = await Joke.findOne({   // cree une variable qui stock le resultat utilise la méthode findOne() de Sequelize pour récupérer une blague au hasard dans la base de données
       order: sequelize.literal('RANDOM()') // choisir une blague au hasard avec sequelize dans la base de donnée
@@ -265,10 +281,10 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET
 
 /**
  * @swagger
- * /blagues:
+ * /v1/blagues:
  *   post:
  *     summary: Ajoute une nouvelle blague
- *     tags: [Blagues]
+ *     tags: [Blagues V1]
  *     requestBody:
  *       required: true
  *       content:
@@ -293,7 +309,8 @@ app.get('/blagues/random', async (req, res) => {    // la méthode GET
  */
 
 // async permet de traiter plusieur requette sans rien bloquer
-app.post('/blagues', async (req, res) => {
+// Route Ajout de blagues Version 1
+v1Router.post('/blagues', async (req, res) => {
   try {
     const { content } = req.body; //  je recupere le contenu de la blague car "content" via la requete
     const ajoutBlague = await Joke.create({ content }); // cree une variable qui stock le resultat utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
@@ -311,10 +328,10 @@ app.post('/blagues', async (req, res) => {
 
 /**
  * @swagger
- * /blagues/{id}:
+ * /v1/blagues/{id}:
  *   get:
  *     summary: Récupère une blague par son ID
- *     tags: [Blagues]
+ *     tags: [Blagues V1]
  *     parameters:
  *       - in: path
  *         name: id
@@ -335,7 +352,8 @@ app.post('/blagues', async (req, res) => {
  *         description: Erreur lors de la récupération de la blague
  */
 // toujours en async 
-app.get('/blagues/:id', async (req, res) => {
+// Route Version 1 recuperation ID 
+v1Router.get('/blagues/:id', async (req, res) => {
   try {
     const blagueId = await Joke.findByPk(id); // cree une variable qui stock le resultat Recherche une blague avec la methode (findByPk- by my primera key ) de sequilizze avec id dans la base de donnéé
     if (blagueId) {
@@ -355,10 +373,10 @@ app.get('/blagues/:id', async (req, res) => {
 
 /**
  * @swagger
- * /blagues:
+ * /v1/blagues:
  *   get:
  *     summary: Récupère toutes les blagues
- *     tags: [Blagues]
+ *     tags: [Blagues V1]
  *     responses:
  *       200:
  *         description: Liste de toutes les blagues
@@ -372,7 +390,8 @@ app.get('/blagues/:id', async (req, res) => {
  *         description: Erreur lors de la récupération des blagues
  */
 // toujours en async 
-app.get('/blagues', async (req, res) => {
+// Route Version 1 toutes les blagues 
+v1Router.get('/blagues', async (req, res) => {
   try {
     const toutesLesBlagues = await Joke.findAll(); // cree une variable qui stock le resultat Récupère toutes les blagues  avec la methode findAll() de sequilize dans la base de données
     res.status(200).json(toutesLesBlagues); // Envoie les blagues en réponse avec son status
@@ -382,6 +401,8 @@ app.get('/blagues', async (req, res) => {
   }
 });
 
+// et on utilise le routass express
+app.use('/V1',v1Router);
 
 
 // Démarrer le serveur 3000 avec un console.log message Serveur est en marche sur http://localhost:3000
