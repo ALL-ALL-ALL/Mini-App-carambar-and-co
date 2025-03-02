@@ -389,6 +389,7 @@ v1Router.get('/blagues/:id', async (req, res) => {
  *       500:
  *         description: Erreur lors de la récupération des blagues
  */
+
 // toujours en async 
 // Route Version 1 toutes les blagues 
 v1Router.get('/blagues', async (req, res) => {
@@ -402,7 +403,7 @@ v1Router.get('/blagues', async (req, res) => {
 });
 
 // et on utilise le routass express
-app.use('/V1',v1Router);
+app.use('/V1', v1Router);
 
 
 // Démarrer le serveur 3000 avec un console.log message Serveur est en marche sur http://localhost:3000
