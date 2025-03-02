@@ -404,7 +404,7 @@ v1Router.get('/blagues', async (req, res) => {
 });
 
 // et on utilise le routass express
-app.use('/V1', v1Router);
+app.use('/v1', v1Router);
 
 
 // Démarrer le serveur 3000 avec un console.log message Serveur est en marche sur http://localhost:3000
