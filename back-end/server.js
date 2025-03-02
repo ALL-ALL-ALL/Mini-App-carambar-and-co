@@ -261,13 +261,13 @@ v1Router.get('/blagues/random', async (req, res) => {    // la méthode GET
     });
 
     if (!randomBlagues) { // Si aucune blague n'est trouvée !
-      return res.status(404).json({ message: 'Aucune blague trouvée' }); // si aucune blague est trouve alors erreur 404
+      return res.status(404).json('Tu as eu acces à la base de donnée mais la Blague que tu cherches existe pas 🙋🏻‍♂️'); // si aucune blague est trouve alors erreur 404
     }
 
     res.status(200).json(randomBlagues); // sinon Renvoie la blague aléatoire avec status 200 OK 
   } catch (error) {
-    console.error('Erreur lors de la récupération de la blague aléatoire:', error); // sinon status 500 avec un message d'erreur 
-    res.status(500).json({ message: 'Erreur serveur' }); // et un message d'erreur pour le server 
+    console.error('Erreur lors de la récupération de la blague aléatoire:', error); // pour le debeug pour moi 
+    res.status(500).json({ message: 'Erreur serveur' }); //  message d'erreur problème du au  server 
   }
 });
 
@@ -318,8 +318,8 @@ v1Router.post('/blagues', async (req, res) => {
     const { content } = req.body; //  je recupere le contenu de la blague car "content" via la requete
     const ajoutBlague = await Joke.create({ content }); // cree une variable qui stock le resultat utilise la méthode create() de Sequelize pour insérer la blague dans la base de données
     res.status(201).json(ajoutBlague);  // j'envoi la blague en repons cree en status 201  
-  } catch (error) {                  // chope en cas d'erreur  avec un status 500 avec le message
-    res.status(500).json({ error: 'Erreur lors de l\'ajout de la blague' });
+  } catch (error) {                  
+    res.status(500).json('Erreur server 🙋🏻‍♂️'); // probleme avec le server chope en cas d'erreur  avec un status 500 avec le message
   }
 });
 
@@ -364,8 +364,8 @@ v1Router.get('/blagues/:id', async (req, res) => {
       res.status(404).json( 'Tu as eu acces à la base de donnée mais la Blague que tu cherches existe pas 🙋🏻‍♂️' ); // acces a la base de données mais la blague n'existe pas status 404 
     }
   } catch (error) {
-    console.error('Erreur lors de la connexion de la base de données reessayer 🙋🏻‍♂️'); // prendre l 'erreur la catcher avec un status 500 avec son message 
-    res.status(500).json('Erreur lors de la récupération de la blague');
+    console.error('Erreur le server reessayer 🙋🏻‍♂️'); // pour moi pour debeuger 
+    res.status(500).json('Erreur avec le server 🙋🏻‍♂️'); // prendre l 'erreur la catcher avec un status 500 avec son message 
   }
 });
 
@@ -399,8 +399,8 @@ v1Router.get('/blagues', async (req, res) => {
     const toutesLesBlagues = await Joke.findAll(); // cree une variable qui stock le resultat Récupère toutes les blagues  avec la methode findAll() de sequilize dans la base de données
     res.status(200).json(toutesLesBlagues); // Envoie les blagues en réponse avec son status
   } catch (error) {
-    console.error('Error fetching jokes:', error);  // catch l'erreur avec son message 
-    res.status(500).json({ message: 'Error fetching jokes' });
+    console.error('Erreur server');  // pour le debeug pour mooi  
+    res.status(500).json('Erreur avec server reessayer 🙋🏻‍♂️');  // catch l'erreur avec son message probleme avec le server 
   }
 });
 
