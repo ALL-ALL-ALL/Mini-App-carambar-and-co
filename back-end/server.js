@@ -35,7 +35,7 @@ app.use(cors());
 const v1Router = express.Router();
 
 
-
+ 
 
 
                       //  tester api au debut 
@@ -355,7 +355,7 @@ v1Router.post('/blagues', async (req, res) => {
 // Route Version 1 recuperation ID 
 v1Router.get('/blagues/:id', async (req, res) => {
   try {
-    const blagueId = await Joke.findByPk(id); // cree une variable qui stock le resultat Recherche une blague avec la methode (findByPk- by my primera key ) de sequilizze avec id dans la base de donnéé
+    const blagueId = await Joke.findByPk(req.params.id); // cree une variable qui stock le resultat Recherche une blague avec la methode (findByPk- by my primera key ) de sequilizze avec id dans la base de donnéé      (avant c'était id mais le changement est dans la route pas dans la recup du parametre)
     if (blagueId) {
       res.status(200).json(blagueId); // Si la blague existe, la renvoyer status 200 ok
     } else {
