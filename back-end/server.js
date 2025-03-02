@@ -225,22 +225,23 @@ app.get('/', (req, res) => {
 
 
 // la je documente mon end-point RANDOM 
+
 /**
  * @swagger
  * /v1/blagues/random:
- *   get:                                         // il precise que c'est une requete get 
- *     summary: Récupère une blague aléatoire     // description de la route
- *     tags: [Blagues V1]                            // il le tag  à blague V1
- *     responses:                                 // reponse 200 ok 
+ *   get:                                        
+ *     summary: Récupère une blague aléatoire     
+ *     tags: [Blagues V1]                            
+ *     responses:                                 
  *       200:
  *         description: Une blague aléatoire      
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Joke'
- *       404:                                         //  réponses rien de trouvée
+ *       404:                                         
  *         description: Aucune blague disponible      
- *       500:                                       // erreur server 
+ *       500:                                      
  *         description: Erreur serveur
  */
 
@@ -278,7 +279,7 @@ v1Router.get('/blagues/random', async (req, res) => {    // la méthode GET
 
 
 
-// la je documente mon end-point POST donc l'ajout de blagues
+// la je documente mon end-point POST donc (l'ajout de blagues)
 
 /**
  * @swagger
@@ -310,7 +311,7 @@ v1Router.get('/blagues/random', async (req, res) => {    // la méthode GET
  */
 
 // async permet de traiter plusieur requette sans rien bloquer
-// Route Ajout de blagues Version 1
+// Route (Ajout de blagues) Version 1
 
 v1Router.post('/blagues', async (req, res) => {
   try {
@@ -325,7 +326,7 @@ v1Router.post('/blagues', async (req, res) => {
   
 
 
-// la je documente mon end-point GET avec ID de la blague
+// la je documente mon end-point GET avec (ID) de la blague
 
 /**
  * @swagger
@@ -353,7 +354,7 @@ v1Router.post('/blagues', async (req, res) => {
  *         description: Erreur lors de la récupération de la blague
  */
 // toujours en async 
-// Route Version 1 recuperation ID 
+// Route Version 1 recuperation (ID) 
 v1Router.get('/blagues/:id', async (req, res) => {
   try {
     const blagueId = await Joke.findByPk(req.params.id); // cree une variable qui stock le resultat Recherche une blague avec la methode (findByPk- by my primera key ) de sequilizze avec id dans la base de donnéé      (avant c'était id mais le changement est dans la route pas dans la recup du parametre)
@@ -369,7 +370,7 @@ v1Router.get('/blagues/:id', async (req, res) => {
 });
 
 
-// la je documente mon end-point GET pour recuperer toutes les blagues
+// la je documente mon end-point GET pour (recuperer toutes les blagues)
 
 
 /**
@@ -392,7 +393,7 @@ v1Router.get('/blagues/:id', async (req, res) => {
  */
 
 // toujours en async 
-// Route Version 1 toutes les blagues 
+// Route Version 1  de (toutes les blagues )
 v1Router.get('/blagues', async (req, res) => {
   try {
     const toutesLesBlagues = await Joke.findAll(); // cree une variable qui stock le resultat Récupère toutes les blagues  avec la methode findAll() de sequilize dans la base de données
@@ -405,6 +406,7 @@ v1Router.get('/blagues', async (req, res) => {
 
 // et on utilise le routass express
 app.use('/v1', v1Router);
+app.use('/V1', v1Router);
 
 
 // Démarrer le serveur 3000 avec un console.log message Serveur est en marche sur http://localhost:3000
