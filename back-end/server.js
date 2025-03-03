@@ -30,7 +30,7 @@ app.use(cors());
 
 
 
-// Creation d'un routeur pour la Version 1 (elle permettra de grouper les routes via la methode Express)
+// Creation d'un ROUTEUR pour la Version 1 (elle permettra de grouper les routes via la methode Express)
 
 const v1Router = express.Router();
 
