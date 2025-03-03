@@ -19,7 +19,7 @@ sequelize.authenticate()
   });
 
 
-// Définir un modèle (par exemple, pour les blagues)
+// Définir un modèle (pour les blagues)
 const Joke = sequelize.define('Joke', {
   content: {
     type: DataTypes.STRING,
