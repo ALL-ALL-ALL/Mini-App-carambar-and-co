@@ -12,20 +12,21 @@
 //   console.log(`Server is running at http://localhost:${port}`);
 // });
 
+// point de départ qui relie votre serveur web (Express) avec votre base de données (Sequelize/SQLite).
 
 
-const express = require('express'); // importation de express  framework
+const express = require('express'); // importation de express framework de la biblotheque de node.js pour construire app web et api 
 
-const { sequelize, Joke } = require('./models'); // importation de joke et de sequilize(connexion) pour interagir avec la base de donnée  
-                                                  // joke et le model quon retrouve dans la base de donnée
+const { sequelize, Joke } = require('./models'); // importation de deux element de mon fichier model  
+                                                  // joke qui represente les table et (sequelize ) la base de donnée 
 
 const app = express(); // cration de app  express 
 app.use(express.json()); // Utilisation du middleware pour traiter les données JSON dans les requêtes
 
-const cors = require('cors'); // Importation du middleware CORS pour autoriser les requêtes cross-origin
+const cors = require('cors'); // Importation du module CORS pour autoriser les requêtes cross-origin (mais sans agir comme si on prend un outil)
 
 
-// Activez CORS  permettre les requette venant de nimporte 
+// Activez CORS  permettre les requette venant de nimporte ou du moins git et render il me semble  (est la j'utilise mon outil pour apliqquer  )
 app.use(cors());
 
 
